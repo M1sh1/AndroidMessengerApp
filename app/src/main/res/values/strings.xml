@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">AndroidMessengerApp</string>
+    <string name="searchtool">searchtool</string>
+    <string name="search_content_description" />
+    <string name="search">Search</string>
+    <string name="profileImage" />
+    <string name="nickname">Nickname</string>
+    <string name="lastMessage" />
+    <string name="chatitem">chatItem</string>
+    <string name="accountItem" />
+    <string name="account_list" />
+    <string name="occupation">Occupation</string>
 </resources>
