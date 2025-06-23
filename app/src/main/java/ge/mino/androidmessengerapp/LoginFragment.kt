@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ge.mino.androidmessengerapp.databinding.FragmentLoginBinding
 
-class LoginFragment :  Fragment() {
+class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
@@ -16,9 +16,17 @@ class LoginFragment :  Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        // Set click listener for the Sign Up button
+        binding.btnSignUp.setOnClickListener {
+            // Switch to RegisterFragment
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, RegisterFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         return binding.root
-
-
     }
 
     override fun onDestroyView() {
