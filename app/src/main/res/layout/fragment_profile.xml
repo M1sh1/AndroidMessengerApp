@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/loginContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/avatar_image_placeholder"
+            android:layout_marginBottom="40dp"
+            />
+
+        <EditText
+            android:id="@+id/etNickname"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:hint="Nickname"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/fieldsquare"/>
+
+        <EditText
+            android:id="@+id/occupationProfile"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:hint="Occupation"
+            android:inputType="textPassword"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/fieldsquare"/>
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnSignOut"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Sign Out"
+            android:layout_marginBottom="24dp" />
+
+    </LinearLayout>
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            style="@style/Widget.MaterialComponents.BottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:fabAttached="true"
+            app:fabCradleRoundedCornerRadius="16dp"
+            app:backgroundTint="@color/white" />
+
+        <ImageView
+            android:id="@+id/homeButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/homeicon"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_gravity="bottom|start"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="Home" />
+
+        <ImageView
+            android:id="@+id/profileButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/profileicon"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="Profile" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/plusButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/plusbutton"
+            app:fabSize="normal"
+            app:layout_anchor="@id/bottomAppBar"
+            android:contentDescription="plusButton" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
