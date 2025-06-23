@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.database.FirebaseDatabase
 import ge.mino.androidmessengerapp.databinding.FragmentRegisterBinding
 
@@ -42,14 +43,15 @@ class RegisterFragment: Fragment() {
                 auth.createUserWithEmailAndPassword(fakeEmail, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
+                            Log.d("FirebaseAuth", "User created: ${auth.currentUser?.uid}")
                             saveUserToDatabase(nickname, occupation)
                         } else {
-                            Toast.makeText(
-                                requireContext(),
-                                "Registration failed: ${task.exception?.message}",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            Log.d("Minor major fuck up", task.exception.toString())
+                            Log.e("FirebaseAuth", "Registration failed", task.exception)
+                            if (task.exception is FirebaseAuthUserCollisionException) {
+                                Toast.makeText(requireContext(), "Nickname already used", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(requireContext(), "Registration failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                            }
                         }
                     }
             } else {
@@ -59,20 +61,28 @@ class RegisterFragment: Fragment() {
     }
 
     private fun saveUserToDatabase(nickname: String, occupation: String) {
-        val uid = auth.currentUser?.uid ?: return
+        val uid = auth.currentUser?.uid
+        if (uid == null) {
+            Log.e("FirebaseDB", "User UID is null!")
+            return
+        }
+
         val userMap = mapOf(
             "nickname" to nickname,
             "occupation" to occupation
         )
+
         FirebaseDatabase.getInstance().getReference("users")
             .child(uid)
             .setValue(userMap)
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "User registered!", Toast.LENGTH_SHORT).show()
+                Log.d("FirebaseDB", "User data saved for UID: $uid")
                 (activity as? MainActivity)?.switchToLogin()
             }
             .addOnFailureListener {
                 Toast.makeText(requireContext(), "Failed to save user data", Toast.LENGTH_SHORT).show()
+                Log.e("FirebaseDB", "Database error: ${it.message}")
             }
     }
 

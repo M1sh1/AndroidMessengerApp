@@ -17,9 +17,7 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        // Set click listener for the Sign Up button
         binding.btnSignUp.setOnClickListener {
-            // Switch to RegisterFragment
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, RegisterFragment())
                 .addToBackStack(null)
