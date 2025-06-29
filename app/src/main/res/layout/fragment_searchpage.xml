@@ -18,6 +18,7 @@
            >
             <ImageView
                 android:layout_width="40dp"
+                android:id="@+id/backicon"
                 android:layout_height="40dp"
                 android:src="@drawable/backicon"
                 android:layout_gravity="center_vertical"/>

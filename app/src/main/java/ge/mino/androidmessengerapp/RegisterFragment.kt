@@ -45,6 +45,12 @@ class RegisterFragment: Fragment() {
                         if (task.isSuccessful) {
                             Log.d("FirebaseAuth", "User created: ${auth.currentUser?.uid}")
                             saveUserToDatabase(nickname, occupation)
+                            Toast.makeText(requireContext(), "User Created", Toast.LENGTH_SHORT).show()
+
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainer, LoginFragment())
+                                .commit()
+
                         } else {
                             Log.e("FirebaseAuth", "Registration failed", task.exception)
                             if (task.exception is FirebaseAuthUserCollisionException) {
@@ -78,7 +84,8 @@ class RegisterFragment: Fragment() {
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "User registered!", Toast.LENGTH_SHORT).show()
                 Log.d("FirebaseDB", "User data saved for UID: $uid")
-                (activity as? MainActivity)?.switchToLogin()
+
+
             }
             .addOnFailureListener {
                 Toast.makeText(requireContext(), "Failed to save user data", Toast.LENGTH_SHORT).show()
