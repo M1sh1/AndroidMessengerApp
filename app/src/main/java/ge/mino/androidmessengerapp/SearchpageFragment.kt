@@ -1,23 +1,49 @@
 package ge.mino.androidmessengerapp
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import ge.mino.androidmessengerapp.databinding.FragmentSearchpageBinding
 
-class SearchpageFragment : Fragment(){
-
+class SearchpageFragment : Fragment() {
     private var _binding: FragmentSearchpageBinding? = null
     private val binding get() = _binding!!
+    private lateinit var adapter: AccountItemAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchpageBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        adapter = AccountItemAdapter { user ->
+            Toast.makeText(requireContext(), "Selected: ${user.nickname}", Toast.LENGTH_SHORT).show()
+
+        }
+
+        debugCheckAllUsers()
+        binding.accountItem.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@SearchpageFragment.adapter
+            setHasFixedSize(true)
+        }
 
         binding.backicon.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
@@ -25,10 +51,86 @@ class SearchpageFragment : Fragment(){
                 .commit()
         }
 
-        return binding.root
+        binding.searchTool.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val query = s?.toString()?.trim()
+                if (query.isNullOrEmpty()) {
+                    adapter.submitList(emptyList())
+                    return
+                }
+
+                if (query.length >= 3) {
+                    searchUsers(query)
+                } else {
+                    adapter.submitList(emptyList())
+                }
+            }
+        })
+    }
+
+    private fun searchUsers(query: String) {
+        Log.d("SearchDebug", "Starting search for: $query")
+
+        val database = FirebaseDatabase.getInstance("https://messengerapp-73fa0-default-rtdb.europe-west1.firebasedatabase.app")
+        val ref = database.getReference("users")
+
+        Log.d("SearchDebug", "Database reference: $ref")
+
+        database.getReference("users")
+            .orderByChild("nicknameLowercase")
+            .startAt(query.lowercase())
+            .endAt("${query.lowercase()}\uf8ff")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    val users = snapshot.children.mapNotNull {
+                        it.getValue(User::class.java)?.also { user ->
+                        }
+                    }
+
+                    adapter.submitList(users)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                    Toast.makeText(requireContext(), "Search failed", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
+    private fun debugCheckAllUsers() {
 
+        FirebaseDatabase.getInstance("https://messengerapp-73fa0-default-rtdb.europe-west1.firebasedatabase.app")
+            .getReference("users")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
 
+                    if (!snapshot.exists()) {
+                        return
+                    }
+
+                    snapshot.children.forEach { userSnapshot ->
+                        Log.d("DEBUG", """
+                    User ID: ${userSnapshot.key}
+                    Data: ${userSnapshot.value}
+                    Nickname: ${userSnapshot.child("nickname").value}
+                    Lowercase: ${userSnapshot.child("nicknameLowercase").value}
+                    """.trimIndent())
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("DEBUG", "Failed to read users: ${error.message}")
+                }
+            })
+    }
 }

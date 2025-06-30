@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import ge.mino.androidmessengerapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,19 @@ class MainActivity : AppCompatActivity() {
             Log.d("Firebase", "Initialized with name: ${it.name}")
         } ?: Log.e("Firebase", "FirebaseApp failed to initialize!")
 
+        val auth = FirebaseAuth.getInstance()
+
+        auth.currentUser?.let { user ->
+            Log.d("Auth", "User already logged in: ${user.uid}")
+            supportFragmentManager.beginTransaction()
+                .replace(binding.fragmentContainer.id, HomepageFragment())
+                .commit()
+        } ?: run {
+            Log.d("Auth", "No user logged in")
+            supportFragmentManager.beginTransaction()
+                .replace(binding.fragmentContainer.id, LoginFragment())
+                .commit()
+        }
 
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainer.id, LoginFragment())

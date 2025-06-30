@@ -43,16 +43,13 @@ class RegisterFragment: Fragment() {
                 auth.createUserWithEmailAndPassword(fakeEmail, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Log.d("FirebaseAuth", "User created: ${auth.currentUser?.uid}")
                             saveUserToDatabase(nickname, occupation)
-                            Toast.makeText(requireContext(), "User Created", Toast.LENGTH_SHORT).show()
 
                             requireActivity().supportFragmentManager.beginTransaction()
                                 .replace(R.id.fragmentContainer, LoginFragment())
                                 .commit()
 
                         } else {
-                            Log.e("FirebaseAuth", "Registration failed", task.exception)
                             if (task.exception is FirebaseAuthUserCollisionException) {
                                 Toast.makeText(requireContext(), "Nickname already used", Toast.LENGTH_SHORT).show()
                             } else {
@@ -67,29 +64,29 @@ class RegisterFragment: Fragment() {
     }
 
     private fun saveUserToDatabase(nickname: String, occupation: String) {
-        val uid = auth.currentUser?.uid
-        if (uid == null) {
-            Log.e("FirebaseDB", "User UID is null!")
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            Log.e("Registration", "No authenticated user")
             return
         }
 
-        val userMap = mapOf(
+        val userData = hashMapOf(
             "nickname" to nickname,
-            "occupation" to occupation
+            "nicknameLowercase" to nickname.lowercase(),
+            "occupation" to occupation,
+            "profileImageUrl" to ""
         )
 
-        FirebaseDatabase.getInstance().getReference("users")
-            .child(uid)
-            .setValue(userMap)
-            .addOnSuccessListener {
-                Toast.makeText(requireContext(), "User registered!", Toast.LENGTH_SHORT).show()
-                Log.d("FirebaseDB", "User data saved for UID: $uid")
-
-
-            }
-            .addOnFailureListener {
-                Toast.makeText(requireContext(), "Failed to save user data", Toast.LENGTH_SHORT).show()
-                Log.e("FirebaseDB", "Database error: ${it.message}")
+        FirebaseDatabase.getInstance("https://messengerapp-73fa0-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getReference("users")
+            .child(currentUser.uid)
+            .setValue(userData)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("Registration", "User saved to database")
+                } else {
+                    Log.e("Registration", "Save failed", task.exception)
+                }
             }
     }
 
