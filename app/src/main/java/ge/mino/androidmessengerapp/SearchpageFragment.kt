@@ -34,8 +34,21 @@ class SearchpageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = AccountItemAdapter { user ->
-            Toast.makeText(requireContext(), "Selected: ${user.nickname}", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle().apply {
+                putString("userId", user.uid)
+                putString("nickname", user.nickname)
+                putString("occupation", user.occupation)
+                putString("profileImageUrl", user.profileImageUrl)
+            }
 
+            val chatFragment = ChatFragment().apply {
+                arguments = bundle
+            }
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, chatFragment)
+                .addToBackStack(null)
+                .commit()
         }
 
         debugCheckAllUsers()
