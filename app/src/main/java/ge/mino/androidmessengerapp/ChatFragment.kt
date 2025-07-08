@@ -1,6 +1,7 @@
 package ge.mino.androidmessengerapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,12 +29,12 @@ class ChatFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val userId = arguments?.getString("userId") ?: return
         val nickname = arguments?.getString("nickname") ?: "Unknown"
         val occupation = arguments?.getString("occupation") ?: ""
         val profileImageUrl = arguments?.getString("profileImageUrl") ?: ""
 
+        Log.d("LOG UserId: ", userId)
         binding.accountName.text = nickname
         binding.lastMessage.text = occupation
 
@@ -58,7 +59,7 @@ class ChatFragment: Fragment() {
 
     }
 
-    private fun sendMessageToUser(receiverId: String, messageText: String) {
+    fun sendMessageToUser(receiverId: String, messageText: String) {
         val senderId = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val messageRef = FirebaseDatabase.getInstance()
             .getReference("messages")

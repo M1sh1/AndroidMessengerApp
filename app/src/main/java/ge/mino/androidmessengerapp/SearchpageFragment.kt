@@ -85,30 +85,21 @@ class SearchpageFragment : Fragment() {
     }
 
     private fun searchUsers(query: String) {
-        Log.d("SearchDebug", "Starting search for: $query")
-
-        val database = FirebaseDatabase.getInstance("https://androidmessengerapp-73903-default-rtdb.firebaseio.com/")
-        val ref = database.getReference("users")
-
-        Log.d("SearchDebug", "Database reference: $ref")
-
-        database.getReference("users")
+        FirebaseDatabase.getInstance("https://androidmessengerapp-73903-default-rtdb.firebaseio.com")
+            .getReference("users")
             .orderByChild("nicknameLowercase")
             .startAt(query.lowercase())
             .endAt("${query.lowercase()}\uf8ff")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-
-                    val users = snapshot.children.mapNotNull {
-                        it.getValue(User::class.java)?.also { user ->
-                        }
+                    val users = snapshot.children.mapNotNull { userSnapshot ->
+                        userSnapshot.getValue(User::class.java)?.copy(
+                            uid = userSnapshot.key ?: "" // Key becomes UID
+                        )
                     }
-
                     adapter.submitList(users)
                 }
-
                 override fun onCancelled(error: DatabaseError) {
-
                     Toast.makeText(requireContext(), "Search failed", Toast.LENGTH_SHORT).show()
                 }
             })
