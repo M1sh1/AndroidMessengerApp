@@ -16,6 +16,16 @@ class ChatFragment: Fragment() {
     private var _binding: FragmentChatBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentChatBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -24,11 +34,9 @@ class ChatFragment: Fragment() {
         val occupation = arguments?.getString("occupation") ?: ""
         val profileImageUrl = arguments?.getString("profileImageUrl") ?: ""
 
-        // Set nickname and occupation in toolbar
         binding.accountName.text = nickname
         binding.lastMessage.text = occupation
 
-        // Load profile image if available
         if (profileImageUrl.isNotEmpty()) {
             Glide.with(requireContext())
                 .load(profileImageUrl)
@@ -36,12 +44,10 @@ class ChatFragment: Fragment() {
                 .into(binding.profileImage)
         }
 
-        // Back button functionality
         binding.backIcon.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        // Send button stub
         binding.sendButton.setOnClickListener {
             val messageText = binding.messageField.text.toString()
             if (messageText.isNotBlank()) {
@@ -50,7 +56,6 @@ class ChatFragment: Fragment() {
             }
         }
 
-        // TODO: Load messages with userId
     }
 
     private fun sendMessageToUser(receiverId: String, messageText: String) {
