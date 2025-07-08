@@ -93,6 +93,10 @@ class ProfileFragment: Fragment() {
         uri?.let {
             uploadImageToFirebase(it)
         }
+
+
+
+
     }
     private fun uploadImageToFirebase(imageUri: Uri) {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return

@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity() {
             .replace(binding.fragmentContainer.id, LoginFragment())
             .commit()
     }
+
+
 }
 
 
