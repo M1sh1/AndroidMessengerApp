@@ -80,7 +80,7 @@ class ProfileFragment: Fragment() {
                 "profileImageUrl" to ""
             )
             if(uid != null)
-            FirebaseDatabase.getInstance("https://messengerapp-73fa0-default-rtdb.europe-west1.firebasedatabase.app/")
+            FirebaseDatabase.getInstance("https://androidmessengerapp-73903-default-rtdb.firebaseio.com/")
                 .getReference("users")
                 .child(uid)
                 .updateChildren(userData)
@@ -103,7 +103,7 @@ class ProfileFragment: Fragment() {
             .addOnSuccessListener {
                 storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
                     // Save URL to Firebase Realtime Database
-                    FirebaseDatabase.getInstance("https://messengerapp-73fa0-default-rtdb.europe-west1.firebasedatabase.app/")
+                    FirebaseDatabase.getInstance("https://androidmessengerapp-73903-default-rtdb.firebaseio.com/")
                         .getReference("users")
                         .child(uid)
                         .child("profileImageUrl")

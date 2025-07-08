@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "767476274672",
+    "firebase_url": "https://androidmessengerapp-73903-default-rtdb.firebaseio.com",
     "project_id": "androidmessengerapp-73903",
     "storage_bucket": "androidmessengerapp-73903.firebasestorage.app"
   },
@@ -10,6 +11,25 @@
         "mobilesdk_app_id": "1:767476274672:android:ae64289ea3aa64f4c4b935",
         "android_client_info": {
           "package_name": "ge.mino"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtI5OJ-76jPwqdfLrEFrnNLN68lNYSwn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767476274672:android:ab26572d688d841ac4b935",
+        "android_client_info": {
+          "package_name": "ge.mino.androidmessengerapp"
         }
       },
       "oauth_client": [],

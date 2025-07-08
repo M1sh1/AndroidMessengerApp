@@ -66,9 +66,12 @@ class RegisterFragment: Fragment() {
     private fun saveUserToDatabase(nickname: String, occupation: String) {
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser == null) {
-            Log.e("Registration", "No authenticated user")
+            Log.e("Registration", "No authenticated user - cannot save to DB")
             return
         }
+
+        val uid = currentUser.uid
+        Log.d("Registration", "Saving user to DB with UID: $uid")
 
         val userData = hashMapOf(
             "nickname" to nickname,
@@ -77,16 +80,20 @@ class RegisterFragment: Fragment() {
             "profileImageUrl" to ""
         )
 
-        FirebaseDatabase.getInstance("https://messengerapp-73fa0-default-rtdb.europe-west1.firebasedatabase.app/")
+        val dbUrl = "https://androidmessengerapp-73903-default-rtdb.firebaseio.com/"
+        val dbRef = FirebaseDatabase.getInstance(dbUrl)
             .getReference("users")
-            .child(currentUser.uid)
-            .setValue(userData)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d("Registration", "User saved to database")
-                } else {
-                    Log.e("Registration", "Save failed", task.exception)
-                }
+            .child(uid)
+
+        Log.d("Registration", "Database URL: $dbUrl")
+        Log.d("Registration", "Database path: users/$uid")
+
+        dbRef.setValue(userData)
+            .addOnSuccessListener {
+                Log.d("Registration", "User data saved successfully")
+            }
+            .addOnFailureListener { e ->
+                Log.e("Registration", "Error saving user to DB: ${e.message}", e)
             }
     }
 

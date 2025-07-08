@@ -87,7 +87,7 @@ class SearchpageFragment : Fragment() {
     private fun searchUsers(query: String) {
         Log.d("SearchDebug", "Starting search for: $query")
 
-        val database = FirebaseDatabase.getInstance("https://messengerapp-73fa0-default-rtdb.europe-west1.firebasedatabase.app")
+        val database = FirebaseDatabase.getInstance("https://androidmessengerapp-73903-default-rtdb.firebaseio.com/")
         val ref = database.getReference("users")
 
         Log.d("SearchDebug", "Database reference: $ref")
@@ -122,7 +122,7 @@ class SearchpageFragment : Fragment() {
 
     private fun debugCheckAllUsers() {
 
-        FirebaseDatabase.getInstance("https://messengerapp-73fa0-default-rtdb.europe-west1.firebasedatabase.app")
+        FirebaseDatabase.getInstance("https://androidmessengerapp-73903-default-rtdb.firebaseio.com/")
             .getReference("users")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
