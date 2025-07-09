@@ -16,4 +16,5 @@
     <string name="what_i_do">What I do</string>
     <string name="sign_in">Sign In</string>
     <string name="messageItem" />
+    <string name="message">messagetext</string>
 </resources>
