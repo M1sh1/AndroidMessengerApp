@@ -48,7 +48,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/searchicon1"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginStart="10dp"/>
 
                 <EditText
                     android:id="@+id/searchTool"
@@ -95,7 +95,7 @@
             android:layout_gravity="bottom|start"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="12dp"
-            android:contentDescription="Home" />
+            android:contentDescription="@string/home" />
 
         <ImageView
             android:id="@+id/profileButton"
@@ -106,7 +106,7 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="12dp"
-            android:contentDescription="Profile" />
+            android:contentDescription="@string/profile" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/plusButton"
@@ -115,7 +115,7 @@
             android:src="@drawable/plusbutton"
             app:fabSize="normal"
             app:layout_anchor="@id/bottomAppBar"
-            android:contentDescription="plusButton" />
+            android:contentDescription="@string/plus_button" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

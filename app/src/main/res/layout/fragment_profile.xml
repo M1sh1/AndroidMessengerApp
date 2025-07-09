@@ -28,7 +28,7 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:gravity="center"
-            android:hint="Nickname"
+            android:hint="@string/nickname"
             android:inputType="textPersonName"
             android:layout_marginBottom="12dp"
             android:background="@drawable/fieldsquare"/>
@@ -38,7 +38,7 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:gravity="center"
-            android:hint="Occupation"
+            android:hint="@string/occupation"
             android:layout_marginBottom="20dp"
             android:background="@drawable/fieldsquare"/>
 
@@ -46,14 +46,14 @@
             android:id="@+id/btnUpdate"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Update"
+            android:text="@string/update"
             android:layout_marginBottom="24dp" />
 
         <Button
             android:id="@+id/btnSignOut"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Sign Out"
+            android:text="@string/sign_out"
             android:layout_marginBottom="24dp" />
 
     </LinearLayout>
@@ -81,7 +81,7 @@
             android:layout_gravity="bottom|start"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="12dp"
-            android:contentDescription="Home" />
+            android:contentDescription="@string/home" />
 
         <ImageView
             android:id="@+id/profileButton"
@@ -92,7 +92,7 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="12dp"
-            android:contentDescription="Profile" />
+            android:contentDescription="@string/profile" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/plusButton"
@@ -101,7 +101,7 @@
             android:src="@drawable/plusbutton"
             app:fabSize="normal"
             app:layout_anchor="@id/bottomAppBar"
-            android:contentDescription="plusButton" />
+            android:contentDescription="@string/plusbutton" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
