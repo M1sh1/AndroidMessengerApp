@@ -17,6 +17,4 @@
     <string name="sign_in">Sign In</string>
     <string name="messageItem" />
     <string name="message">messagetext</string>
-    <string name="loading">Loading...</string>
-    <string name="log_in">Log In</string>
 </resources>

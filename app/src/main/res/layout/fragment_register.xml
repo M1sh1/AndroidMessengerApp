@@ -22,7 +22,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:src="@drawable/avatar_image_placeholder"
-            android:contentDescription="placeholder batman image"
+            android:contentDescription="@string/placeholder_batman_image"
             />
 
         <EditText
