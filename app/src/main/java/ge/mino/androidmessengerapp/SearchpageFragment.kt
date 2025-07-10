@@ -85,6 +85,8 @@ class SearchpageFragment : Fragment() {
     }
 
     private fun searchUsers(query: String) {
+        binding.loadingBar.visibility = View.VISIBLE
+
         FirebaseDatabase.getInstance("https://androidmessengerapp-73903-default-rtdb.firebaseio.com")
             .getReference("users")
             .orderByChild("nicknameLowercase")
@@ -98,6 +100,7 @@ class SearchpageFragment : Fragment() {
                         )
                     }
                     adapter.submitList(users)
+                    binding.loadingBar.visibility = View.GONE
                 }
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(requireContext(), "Search failed", Toast.LENGTH_SHORT).show()

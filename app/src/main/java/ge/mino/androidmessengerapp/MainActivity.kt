@@ -23,12 +23,10 @@ class MainActivity : AppCompatActivity() {
         val auth = FirebaseAuth.getInstance()
 
         auth.currentUser?.let { user ->
-            Log.d("Auth", "User already logged in: ${user.uid}")
             supportFragmentManager.beginTransaction()
                 .replace(binding.fragmentContainer.id, HomepageFragment())
                 .commit()
         } ?: run {
-            Log.d("Auth", "No user logged in")
             supportFragmentManager.beginTransaction()
                 .replace(binding.fragmentContainer.id, LoginFragment())
                 .commit()

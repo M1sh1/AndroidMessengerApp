@@ -32,6 +32,8 @@ class RegisterFragment: Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
+
+
         binding.btnSignIn.setOnClickListener {
 
             val nickname = binding.etNickname.text.toString().trim()
@@ -60,6 +62,12 @@ class RegisterFragment: Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.LogIn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, LoginFragment())
+                .commit()
         }
     }
 

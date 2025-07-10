@@ -1,5 +1,6 @@
 package ge.mino.androidmessengerapp
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -31,7 +32,6 @@ class ProfileFragment : Fragment() {
     ) { uri: Uri? ->
         uri?.let {
             selectedImageUri = it
-            // Display the selected image immediately
             Glide.with(this)
                 .load(it)
                 .into(binding.imgAvatar)
@@ -50,6 +50,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.loadingBar.visibility = View.VISIBLE
         val currentUser = FirebaseAuth.getInstance().currentUser
         val uid = currentUser?.uid
 
@@ -69,15 +70,8 @@ class ProfileFragment : Fragment() {
             }
             )
 
-                    if (selectedImageUri != null) {
-            Glide.with(this)
-                .load(selectedImageUri)
-                .into(binding.imgAvatar)
-        } else {
-            binding.imgAvatar.setImageResource(R.drawable.avatar_image_placeholder)
-        }
-
-
+        binding.imgAvatar.setImageResource(R.drawable.avatar_image_placeholder)
+        binding.loadingBar.visibility = View.GONE
 
         binding.imgAvatar.setOnClickListener {
             pickImageLauncher.launch("image/*")
@@ -108,6 +102,17 @@ class ProfileFragment : Fragment() {
                 .updateChildren(userData)
 
 
+        }
+
+        binding.btnSignOut.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+
+            val prefs = requireActivity().getSharedPreferences("MessengerAppPrefs", Context.MODE_PRIVATE)
+            prefs.edit().clear().apply()
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, LoginFragment())
+                .commit()
         }
 
     }
