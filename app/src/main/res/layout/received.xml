@@ -27,13 +27,13 @@
             android:padding="8dp"
             android:layout_gravity="center_vertical"
             android:maxWidth="200dp"
-            android:text="Very long message that can wrap into multiple lines but won't exceed 200dp width"/>
+            android:text="@string/very_long_message"/>
 
         <TextView
             android:id="@+id/sentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12:00"
+            android:text="@string/_12_00"
             android:textColor="@color/grey"
             android:textSize="15sp"
             android:layout_gravity="center_vertical"/>

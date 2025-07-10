@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="Nickname"
+                        android:text="@string/nickname"
                         android:textColor="@android:color/white"
                         android:textSize="25sp"
                         android:textStyle="bold"
@@ -67,7 +67,7 @@
                         android:layout_marginTop="4dp"
                         android:ellipsize="end"
                         android:maxLines="3"
-                        android:text="Occupation"
+                        android:text="@string/occupation"
                         android:textColor="@android:color/white"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -113,7 +113,7 @@
     <FrameLayout
         android:id="@+id/messageInputContainer"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/chatHeight"
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +123,7 @@
             android:id="@+id/messageField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Message"
+            android:hint="@string/message"
             android:inputType="text"
             android:paddingEnd="50dp"
         android:paddingStart="15dp"

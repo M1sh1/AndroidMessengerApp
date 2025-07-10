@@ -17,4 +17,16 @@
     <string name="sign_in">Sign In</string>
     <string name="messageItem" />
     <string name="message">messagetext</string>
+    <string name="plus_button">plusButton</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="not_registered">Not Registered?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="update">Update</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="plusbutton">plusButton</string>
+    <string name="placeholder_batman_image">placeholder batman image</string>
+    <string name="very_long_message">Very long message that can wrap into multiple that definitely won\'t exceed 200dp width</string>
+    <string name="_12_00">12:00</string>
+    <string name="accounts">accounts</string>
 </resources>
