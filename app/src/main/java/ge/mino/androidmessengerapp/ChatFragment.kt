@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import ge.mino.androidmessengerapp.databinding.FragmentChatBinding
 import ge.mino.androidmessengerapp.databinding.FragmentHomepageBinding
 import ge.mino.androidmessengerapp.databinding.FragmentLoginBinding
