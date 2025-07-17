@@ -17,4 +17,18 @@
     <string name="sign_in">Sign In</string>
     <string name="messageItem" />
     <string name="message">messagetext</string>
+    <string name="loading" />
+    <string name="home" />
+    <string name="profile" />
+    <string name="plus_button" />
+    <string name="not_registered" />
+    <string name="sign_up" >Sign Up</string>
+    <string name="update" >Update</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="plusbutton" />
+    <string name="placeholder_batman_image" />
+    <string name="log_in">Log In</string>
+    <string name="very_long_message" />
+    <string name="_12_00" />
+    <string name="accounts" />
 </resources>

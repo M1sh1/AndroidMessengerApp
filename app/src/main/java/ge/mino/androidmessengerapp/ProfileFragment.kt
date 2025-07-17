@@ -54,15 +54,18 @@ class ProfileFragment : Fragment() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         val uid = currentUser?.uid
 
-        binding.etNickname.setText(currentUser?.email?.substringBefore("@"))
         FirebaseDatabase.getInstance("https://androidmessengerapp-73903-default-rtdb.firebaseio.com/")
             .getReference("users/$uid")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
 
+
                     val occupation = snapshot.child("occupation").getValue(String::class.java)
                     binding.occupationProfile.setText(occupation ?: "")
-                }
+                    val nickname = snapshot.child("nickname").getValue(String::class.java)
+                    binding.etNickname.setText(nickname ?:"")
+
+               }
 
                 override fun onCancelled(error: DatabaseError) {
 
@@ -88,6 +91,20 @@ class ProfileFragment : Fragment() {
             val newNickname = binding.etNickname.text.toString()
             val newOccupation = binding.occupationProfile.text.toString()
             val currentUser = FirebaseAuth.getInstance().currentUser
+
+            val newEmail = "$newNickname@myapp.fake"
+            currentUser?.verifyBeforeUpdateEmail(newEmail)?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    FirebaseDatabase.getInstance("https://androidmessengerapp-73903-default-rtdb.firebaseio.com/")
+                        .getReference("users/${currentUser.uid}")
+                        .child("nickname").setValue(newNickname)
+
+                } else {
+                    Toast.makeText(context,
+                        "username update failed: ${task.exception?.message}",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
 
             val userData = hashMapOf<String, Any>(
                 "nickname" to newNickname,

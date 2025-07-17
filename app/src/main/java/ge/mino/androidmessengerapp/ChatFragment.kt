@@ -60,6 +60,8 @@ class ChatFragment: Fragment() {
                 .into(binding.profileImage)
         }
 
+
+
         binding.backIcon.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
