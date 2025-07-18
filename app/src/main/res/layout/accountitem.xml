@@ -28,8 +28,8 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp">
+            android:paddingStart="@dimen/generalPadding"
+            android:paddingEnd="@dimen/generalPadding">
 
             <TextView
                 android:id="@+id/accountName"

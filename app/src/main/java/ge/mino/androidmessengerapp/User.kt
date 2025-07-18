@@ -5,11 +5,11 @@ data class User(
     val nickname: String,
     val nicknameLowercase: String = "",
     val occupation: String,
-    val profileImageUrl: String
-){
-    constructor() : this("","", "", "", "")
+    val profileImageUrl: String,
+    var lastMessage: String? = null
+) {
+    constructor() : this("", "", "", "", "", null)
 }
-
 
 
 

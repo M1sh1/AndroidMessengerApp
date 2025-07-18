@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
@@ -108,14 +107,23 @@ class HomepageFragment : Fragment() {
         messagesRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(messageSnapshot: DataSnapshot) {
                 val chattedUserIds = mutableSetOf<String>()
+                val lastMessagesMap = mutableMapOf<String, Pair<Long, String>>() // uid -> (timestamp, message)
 
                 for (messageSnap in messageSnapshot.children) {
-                    val msg = messageSnap.getValue(Message::class.java)
-                    if (msg != null) {
-                        if (msg.sender == currentUserId) {
-                            chattedUserIds.add(msg.receiver)
-                        } else if (msg.receiver == currentUserId) {
-                            chattedUserIds.add(msg.sender)
+                    val msg = messageSnap.getValue(Message::class.java) ?: continue
+
+                    val isReceived = msg.receiver == currentUserId
+                    val otherUserId = if (isReceived) msg.sender else msg.receiver
+
+                    // Only consider messages related to current user
+                    if (msg.sender == currentUserId || msg.receiver == currentUserId) {
+                        chattedUserIds.add(otherUserId)
+
+                        if (isReceived) {
+                            val existing = lastMessagesMap[otherUserId]
+                            if (existing == null || msg.timestamp > existing.first) {
+                                lastMessagesMap[otherUserId] = Pair(msg.timestamp, msg.message)
+                            }
                         }
                     }
                 }
@@ -123,16 +131,19 @@ class HomepageFragment : Fragment() {
                 usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(userSnapshot: DataSnapshot) {
                         val userList = mutableListOf<User>()
-                        originalList = userList
+
                         for (userSnap in userSnapshot.children) {
                             val uid = userSnap.key ?: continue
                             if (uid != currentUserId && chattedUserIds.contains(uid)) {
-                                val user = userSnap.getValue(User::class.java)
+                                val user = userSnap.getValue(User::class.java)?.copy(uid = uid)
                                 if (user != null) {
-                                    userList.add(user.copy(uid = uid))
+                                    user.lastMessage = lastMessagesMap[uid]?.second
+                                    userList.add(user)
                                 }
                             }
                         }
+
+                        originalList = userList
                         chatAdapter.submitList(userList)
                     }
 

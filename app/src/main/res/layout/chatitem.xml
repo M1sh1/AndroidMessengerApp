@@ -25,33 +25,33 @@
             tools:src="@tools:sample/avatars"/>
 
         <LinearLayout
-            android:layout_width="320dp"
+            android:layout_width="@dimen/chatItemLayoutObjWidth"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp">
+            android:paddingStart="@dimen/generalPadding"
+            android:paddingEnd="@dimen/generalPadding">
 
             <TextView
                 android:id="@+id/accountName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="@dimen/maxLinesChatItem"
                 android:text="@string/nickname"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
+                android:textSize="@dimen/chatItemNicknameTextSize"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/lastMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/chatItemMarginTop"
                 android:ellipsize="end"
-                android:maxLines="3"
+                android:maxLines="@dimen/maxLinesChatItem"
                 android:text="@string/lastMessage"
                 android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:textSize="@dimen/chatItemOccupationTextSize" />
         </LinearLayout>
 
     </LinearLayout>

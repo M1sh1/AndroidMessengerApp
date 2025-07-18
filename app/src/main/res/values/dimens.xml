@@ -2,4 +2,10 @@
 <resources>
     <dimen name="_8dp">8dp</dimen>
     <dimen name="chatHeight">55dp</dimen>
+    <dimen name="chatItemLayoutObjWidth">320dp</dimen>
+    <dimen name="maxLinesChatItem">2</dimen>
+    <dimen name="chatItemMarginTop">4dp</dimen>
+    <dimen name="chatItemOccupationTextSize">14sp</dimen>
+    <dimen name="chatItemNicknameTextSize">16sp</dimen>
+    <dimen name="generalPadding">8dp</dimen>
 </resources>

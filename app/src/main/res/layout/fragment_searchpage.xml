@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
         <LinearLayout
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
@@ -23,7 +21,6 @@
                 android:src="@drawable/backicon"
                 android:layout_gravity="center_vertical"/>
 
-
             <LinearLayout
                 android:id="@+id/search"
                 android:layout_width="match_parent"
@@ -32,8 +29,7 @@
                 android:background="@drawable/searchsquare"
                 android:layout_margin="16dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="20dp"
-                >
+                android:layout_marginBottom="20dp">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -53,10 +49,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-
-
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accountItem"
@@ -90,12 +82,11 @@
             android:id="@+id/loadingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loading..."
+            android:text="@string/loading"
             android:textSize="16sp"
             android:layout_marginTop="8dp"
             android:textColor="@android:color/black"
             />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,7 +27,7 @@ class ChatItemAdapter(
         val user = getItem(position)
 
         holder.binding.accountName.text = user.nickname
-        holder.binding.lastMessage.text = "Last message placeholder" // TODO Replace with latest message from them
+        holder.binding.lastMessage.text = user.lastMessage ?: "No messages yet"
 
         Glide.with(holder.itemView.context)
             .load(user.profileImageUrl)

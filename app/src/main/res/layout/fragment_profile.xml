@@ -128,7 +128,7 @@
             android:id="@+id/loadingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loading..."
+            android:text="@string/loading"
             android:textSize="16sp"
             android:layout_marginTop="8dp"
             android:textColor="@android:color/black"

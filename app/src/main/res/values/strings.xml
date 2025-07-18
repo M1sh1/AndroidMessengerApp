@@ -31,4 +31,5 @@
     <string name="very_long_message" />
     <string name="_12_00" />
     <string name="accounts" />
+    <string name="already_have_an_account">Already Have an Account?</string>
 </resources>
